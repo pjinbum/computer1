@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>눈알굴리기</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="한지호" />
+    <meta name="keywords" content="눈알, 굴리기, 눈알굴리는 소리" />
+    <meta name="description" content="마우스 포인터의 좌표를 취득하여 눈알의 각도와 좌표를 계산한다." />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <style>
+      * {margin: 0; padding: 0; box-sizing: border-box;}
+      #eye {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 1px solid black;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        overflow: hidden;
+      }
+      #pupil {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-image: radial-gradient(black 0%, #990033 100%);
+        position: absolute;
+        transition: all 0.2s;
+      }
+    </style>
+  </head>
+  <body>
+
+    <p id="demo"></p>
+
+    <div id="eye">
+      <div id="pupil"></div>
+    </div>
+
+    <script>
+      var ex = $(window).width() / 2;
+      var ey = $(window).height() / 2;
+      var mx;
+      var my;
+      var dx;
+      var dy;
+      var ew = $("#eye").width();
+      var pw = $("#pupil").width();
+
+      $(window).resize(function(){
+        ex = $(window).width() / 2;
+        ey = $(window).height() / 2;
+      });
+
+      $(document).mousemove(function(event){
+        if($("#eye").is(":hover")){
+          $("#pupil").css({left: "calc(50% - 20px)", top: "calc(50% - 20px)"})
+        }else{
+          mx = event.clientX;
+          my = event.clientY;
+          dx = mx - ex;
+          dy = my - ey;
+          var theta = Math.atan(dy/dx) * 180 / Math.PI;
+          var radius = ($("#eye").width() - 30) / 2;
+          var y, x, quarter;
+          var final = 0;
+          if(my > ey){ y = true; }else{ y = false; }
+          if(mx > ex){ x = true; }else{ x = false; }
+          if(x && y) { quarter = 4 }else if(x && !y){ quarter = 1 }else if(!x && y){ quarter = 3 }else{ quarter = 2 }
+          if(quarter == 2 || quarter == 3){
+            final = theta + 180;
+          }else if(quarter == 1){
+            final = theta + 360;
+          }else{
+            final = theta;
+          }
+          final = Math.floor(final);
+  
+          var px = Math.floor(radius * Math.cos(final*Math.PI/180));
+          var py = Math.floor(radius * Math.sin(final*Math.PI/180));
+  
+          $("#pupil").css({left: px+ew/2-pw/2 + "px", top: py+ew/2-pw/2 + "px"});
+        }
+      });
+
+    </script>
+  </body>
+</html>
+
+
+
+
+

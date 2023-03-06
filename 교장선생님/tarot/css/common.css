@@ -1,0 +1,38 @@
+/* css reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#stage {
+  background-color: bisque;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+#card, #btn {
+  display: block;
+  margin: auto;
+}
+#btn {
+  margin-top: 20px;
+  padding: 0.6em 1em;
+  background-color: #0066cc;
+  color: white;
+  font-size: 1.2em;
+  border: 1px solid #0033aa;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#btn:hover {
+  background-color: #0033aa;
+}
+
+.rev {
+  transform: rotate(180deg);
+}
+
+
